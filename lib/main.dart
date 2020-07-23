@@ -1,13 +1,9 @@
 import 'dart:convert';
-
 import 'dart:async';
-
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart';
-
 void main() {
   runApp(MaterialApp(
     title: 'Quotes App',
@@ -35,6 +31,7 @@ class _QuotesAppState extends State<QuotesApp>
   AnimationController controller;
   bool randomQuote=true;
   Future<String> fetchQuoteOfTheDay() async {
+    quoteTitle="Quote Of The Day";
     Map quoteMap;
     Response response = await get('https://favqs.com/api/qotd');
     /* Response response = await get(
@@ -54,8 +51,6 @@ class _QuotesAppState extends State<QuotesApp>
     print(author);
     loading = false;
     setState(() {});
-    // print(quote);
-    //author=quoteMap['author'];
   }
 
   Future<String> fetchQuoteByTag(String tag) async {
@@ -64,7 +59,6 @@ class _QuotesAppState extends State<QuotesApp>
     print("hi");
     Map quoteMap;
     quoteTitle=tag+' Quotes';
-
     Response response = await get(
         'https://favqs.com/api/quotes/?filter=$tag&type=tag',
         headers: {
@@ -83,8 +77,6 @@ class _QuotesAppState extends State<QuotesApp>
     print(author);
     loading = false;
     setState(() {});
-    // print(quote);
-    //author=quoteMap['author'];
   }
 
   @override
@@ -96,9 +88,7 @@ class _QuotesAppState extends State<QuotesApp>
     super.initState();
     fetchQuoteOfTheDay();
   }
-
   bool loading = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
